@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bugtrack &mdash; issue board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-brand">
+    <span class="prompt">$</span> bugtrack
+  </div>
+  <div class="topbar-actions">
+    <input id="search-input" type="text" placeholder="filter by title or label&hellip;" class="search-input">
+    <select id="severity-filter" class="severity-select">
+      <option value="">all severities</option>
+      <option value="critical">critical</option>
+      <option value="major">major</option>
+      <option value="minor">minor</option>
+      <option value="trivial">trivial</option>
+    </select>
+    <button id="new-card-btn" class="btn btn-primary">+ new issue</button>
+  </div>
+</header>
+
+<main class="board" id="board">
+  <!-- columns rendered by board.js -->
+</main>
+
+<!-- Create / edit card modal -->
+<div class="modal-overlay" id="card-modal-overlay" hidden>
+  <div class="modal" id="card-modal">
+    <div class="modal-header">
+      <h2 id="modal-title">new issue</h2>
+      <button class="modal-close" id="modal-close-btn" aria-label="close">&times;</button>
+    </div>
+
+    <div class="modal-body">
+      <form id="card-form">
+        <input type="hidden" id="card-id-field">
+
+        <label class="field-label" for="title-field">title</label>
+        <input type="text" id="title-field" class="field-input" required maxlength="200" placeholder="what's broken?">
+
+        <label class="field-label" for="description-field">description</label>
+        <textarea id="description-field" class="field-input field-textarea" rows="4" placeholder="steps to reproduce, expected vs. actual&hellip;"></textarea>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label" for="severity-field">severity</label>
+            <select id="severity-field" class="field-input">
+              <option value="critical">critical</option>
+              <option value="major">major</option>
+              <option value="minor" selected>minor</option>
+              <option value="trivial">trivial</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="status-field">status</label>
+            <select id="status-field" class="field-input">
+              <option value="Open">Open</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Testing">Testing</option>
+              <option value="Closed">Closed</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label" for="assignee-field">assignee</label>
+            <input type="text" id="assignee-field" class="field-input" placeholder="unassigned">
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="labels-field">labels</label>
+            <input type="text" id="labels-field" class="field-input" placeholder="frontend, regression">
+          </div>
+        </div>
+
+        <div class="modal-error" id="modal-error" hidden></div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" id="delete-card-btn" hidden>delete</button>
+          <div class="modal-footer-right">
+            <button type="button" class="btn btn-ghost" id="cancel-btn">cancel</button>
+            <button type="submit" class="btn btn-primary" id="save-btn">save</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="activity-section" id="activity-section" hidden>
+        <h3 class="activity-heading">activity</h3>
+        <ul class="activity-list" id="activity-list"></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/api.js') }}"></script>
+<script src="{{ url_for('static', filename='js/card-modal.js') }}"></script>
+<script src="{{ url_for('static', filename='js/board.js') }}"></script>
+</body>
+</html>
