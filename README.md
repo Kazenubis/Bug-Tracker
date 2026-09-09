@@ -1,5 +1,7 @@
 # Bug Tracker
 
+[![Tests](https://github.com/Kazenubis/Bug-Tracker/actions/workflows/tests.yml/badge.svg)](https://github.com/Kazenubis/Bug-Tracker/actions/workflows/tests.yml)
+
 A Kanban-style bug tracker for dev teams, built with Flask and vanilla JS — drag issues across Open, In Progress, Testing, and Closed, with a full audit trail of every change.
 
 ![Demo](assets/demo.gif)
